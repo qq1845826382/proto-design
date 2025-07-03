@@ -11,17 +11,13 @@ COPY package*.json ./
 # 安装项目依赖
 RUN npm install
 
+RUN npm install -g serve
+
 # 复制项目其余源代码
 COPY . .
 
-# 构建生产环境文件，执行 vue-cli-service build
 RUN npm run build
+RUN mv dist proto
+CMD ["node", "/usr/local/bin/serve", "-s", "proto"]
 
-# 安装 serve 用来提供静态文件服务
-RUN npm install -g serve
 
-# 对外暴露端口，默认为 8080
-EXPOSE 8080
-
-# 运行静态文件服务，根目录为 dist
-CMD ["serve", "-s", "dist"]
