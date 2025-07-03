@@ -1,0 +1,5 @@
+services:
+  web:
+    image: proto-test:test
+    ports:
+      - "33222:3000"
