@@ -355,6 +355,16 @@ let _renderSetting = function () {
       )
       children = [...children, $fontAlignY]
     }
+    // 当为产能组件时，显示额外的产能字段
+    if (rect.type === 'rect-capacity') {
+      let $capacity = div({'class_proto-setting-box-item': true},
+        span('产能'),
+        input({
+          ...getInputJsxProps('capacity'),
+        })
+      )
+      children = [...children, $capacity]
+    }
     let $opacity = div({'class_proto-setting-box-item': true},
       span('不透明度'),
       input({
