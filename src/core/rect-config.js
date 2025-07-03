@@ -42,6 +42,13 @@ let circle = {
   borderRadius: '100%',
   width: 100,
 }
+// 产能组件，基于圆形并新增 "capacity" 字段
+let capacity = {
+  ...circle,
+  name: '产能',
+  // 产能数值，默认空字符串
+  capacity: '',
+}
 let group = {
   ...base,
   name: '群组'
@@ -75,4 +82,5 @@ export {
   group,
   tempGroup,
   line,
+  capacity,
 }
