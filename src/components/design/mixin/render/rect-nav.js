@@ -5,9 +5,17 @@ let {
   span,
   div
 } = jsx
+// vIcon 用于显示组件图标
+let vIcon = jsx.bind('v-icon')
 let _renderRectNav = function () {
   let me = this
-  let retTags = ['rect', 'circle', 'text', 'line'].map(type => {
+  // 新增可创建的组件类型 "capacity"
+  let retTags = ['rect', 'circle', 'text', 'line', 'capacity'].map(type => {
+    let children = [rectConfig[type].name]
+    // capacity 组件使用圆形图标
+    if (type === 'capacity') {
+      children = [vIcon({props_name: 'circle'})]
+    }
     return span({
       'class_label': true,
       on_mousedown (e) {
@@ -16,7 +24,7 @@ let _renderRectNav = function () {
         me.mouse.createType = type
         event.$emit('windowMouseDown', e)
       },
-    }, rectConfig[type].name)
+    }, ...children)
   })
   return div({
     'class_proto-rect-tags': true,
