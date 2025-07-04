@@ -502,13 +502,15 @@ export default {
         return rects
       }
     },
+    // 更新组件的尺寸或样式等数据，
+    // `isSyncParent` 表示是否同时更新其父级群组的尺寸
     _updateRectData (
-      rect, 
-      data, 
+      rect,
+      data,
       isSyncParent = true
     ) {
-      // 如果是 line，那么更新 height 时候同步更新 borderWidth
-      // 并且最小值为 1
+      // 如果组件为线条，在调整高度时需要同步更新 `borderWidth`
+      // 并且高度最小为 1，避免出现无法渲染的细线
       let isLine = rect.type === 'rect-line'
       if (isLine && ('height' in data)){
         let height = Math.max(data.height, 1)
