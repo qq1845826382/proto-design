@@ -3,27 +3,25 @@ import jsx from 'vue-jsx'
 import event from '@/core/event'
 // 引入流程控件图片
 // 引入所有图片，键名与组件类型一致
-import processImg from '@/../res/process.png'
-import PPSImg from '@/../res/PPS.png'
-import connectorImg from '@/../res/connector.png'
-import customerImg from '@/../res/customer.png'
-import fifoImg from '@/../res/fifo.png'
-import stockImg from '@/../res/stock.png'
+// 组件图标统一通过 require 引入，避免构建时路径解析问题
+// 键名即组件类型，值为图片资源路径
+const images = {
+  process: require('@/../res/process.png'),
+  PPS: require('@/../res/PPS.png'),
+  connector: require('@/../res/connector.png'),
+  customer: require('@/../res/customer.png'),
+  fifo: require('@/../res/fifo.png'),
+  stock: require('@/../res/stock.png'),
+}
 let {
   span,
   div
 } = jsx
+// 渲染左侧组件导航
+// 每个可拖拽组件都会生成一个 span，拖拽时会创建相应类型的组件
 let _renderRectNav = function () {
   let me = this
-  // 根据图片数组生成所有可拖拽组件
-  let images = {
-    process: processImg,
-    PPS: PPSImg,
-    connector: connectorImg,
-    customer: customerImg,
-    fifo: fifoImg,
-    stock: stockImg,
-  }
+  // 根据 images 对象生成所有可拖拽组件
   let retTags = Object.keys(images).map(type => {
     let img = jsx.bind('img')
     // 使用对应图片作为控件图标

@@ -6,23 +6,18 @@ import {
 } from "@/core/base"
 import event from '@/core/event'
 // 所有图片型组件对应的图片资源
-import processImg from '@/../res/process.png'
-import PPSImg from '@/../res/PPS.png'
-import connectorImg from '@/../res/connector.png'
-import customerImg from '@/../res/customer.png'
-import fifoImg from '@/../res/fifo.png'
-import stockImg from '@/../res/stock.png'
-
-// 组件类型到图片的映射表，便于统一处理
+// 图片型组件与对应图片的映射表
+// 使用 require 以确保图片路径在打包时被正确解析
 const imageTypes = {
-  process: processImg,
-  PPS: PPSImg,
-  connector: connectorImg,
-  customer: customerImg,
-  fifo: fifoImg,
-  stock: stockImg,
+  process: require('@/../res/process.png'),
+  PPS: require('@/../res/PPS.png'),
+  connector: require('@/../res/connector.png'),
+  customer: require('@/../res/customer.png'),
+  fifo: require('@/../res/fifo.png'),
+  stock: require('@/../res/stock.png'),
 }
 let { div, span } = jsx
+// 渲染单个组件，根据类型不同可显示图片或文本
 let _renderRect = function (rect) {
   let me = this
   let rectData = rect.data
