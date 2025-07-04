@@ -1,4 +1,4 @@
-import * as rectConfig from '@/core/rect-config'
+// import * as rectConfig from '@/core/rect-config'
 import jsx from 'vue-jsx'
 import event from '@/core/event'
 // 引入流程控件图片
