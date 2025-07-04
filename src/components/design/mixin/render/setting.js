@@ -266,13 +266,23 @@ let _renderSetting = function () {
           span('边框宽度'),
           input({
             ...getInputJsxProps('borderWidth'),
+            // 更改回调：同步更新数据并写入历史记录
             'on_change' (e) {
               let value = e.target.value
               let intValue = Math.max(0, parseInt(value))
-              rect.data.borderWidth = intValue
-              if (isLine){
-                rect.data.height = intValue
+              // 通过 _updateRectData 确保响应式更新
+              if (isLine) {
+                // 线条类型依赖高度控制边框宽度
+                me._updateRectData(rect, {
+                  height: intValue,
+                })
               }
+              else {
+                me._updateRectData(rect, {
+                  borderWidth: intValue,
+                })
+              }
+              me._historyPush()
             }
           })
         )
