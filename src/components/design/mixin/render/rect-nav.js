@@ -9,12 +9,16 @@ let {
 let vIcon = jsx.bind('v-icon')
 let _renderRectNav = function () {
   let me = this
-  // 新增可创建的组件类型 "capacity"
-  let retTags = ['rect', 'circle', 'text', 'line', 'capacity'].map(type => {
+  // 只保留流程组件
+  let retTags = ['process'].map(type => {
     let children = [rectConfig[type].name]
-    // capacity 组件使用圆形图标
-    if (type === 'capacity') {
-      children = [vIcon({props_name: 'circle'})]
+    // 使用图片作为图标
+    if (type === 'process') {
+      children = [jsx.bind('img')({
+        attrs_src: rectConfig[type].src,
+        style_width: '16px',
+        style_height: '16px',
+      })]
     }
     return span({
       'class_label': true,

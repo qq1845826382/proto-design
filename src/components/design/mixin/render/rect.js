@@ -57,6 +57,13 @@ let _renderRect = function (rect) {
   let children = []
   if (!this._checkIsGroupLike(rect)){
     jsxProps['on_dblclick'] = (e) => {
+      // 流程组件双击弹出对话框
+      if (rectType === 'rect-process') {
+        me._focusRect(rect, {shiftKey: e.shiftKey})
+        me.$processDialog()
+        mouse.ing = false
+        return
+      }
       me._focusRect(rect, e)
       mouse.ing = false
     }
@@ -79,6 +86,7 @@ let _renderRectInner = function (rect) {
   let isEdit = rect.data.isEdit
   let data = rect.data
   let isLine = rect.type === 'rect-line'
+  let isProcess = rect.type === 'rect-process'
   let jsxProps = {
     'class_proto-rect-inner': true,
   }
@@ -91,7 +99,7 @@ let _renderRectInner = function (rect) {
       'style_border-top-color': data.borderColor,
     }
   }
-  else {
+  else if (!isProcess) {
     jsxProps = {
       ...jsxProps,
       'style_border-width': data.borderWidth + 'px',
@@ -150,7 +158,13 @@ let _renderRectInner = function (rect) {
     }
     children = [span(textJsxProps)]
   }
-  
+  if (isProcess) {
+    children = [jsx.bind('img')({
+      attrs_src: data.src,
+      style_width: '100%',
+      style_height: '100%',
+    })]
+  }
   return div(jsxProps, ...children)
 }
 let _renderRects = function () {

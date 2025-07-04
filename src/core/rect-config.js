@@ -49,6 +49,16 @@ let capacity = {
   // 产能数值，默认空字符串
   capacity: '',
 }
+// 流程组件，显示固定图片
+let process = {
+  ...rect,
+  name: '流程',
+  // 图片地址，默认指向 res 目录
+  src: '/res/process.emf',
+  text: '',
+  borderWidth: 0,
+  backgroundColor: 'transparent',
+}
 let group = {
   ...base,
   name: '群组'
@@ -83,4 +93,5 @@ export {
   tempGroup,
   line,
   capacity,
+  process,
 }

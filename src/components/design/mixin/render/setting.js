@@ -187,6 +187,24 @@ let _renderSetting = function () {
       )
       children = [...children, $angle]
     }
+    // 流程组件仅显示基础属性
+    if (rect.type === 'rect-process') {
+      children = [$left, $top, $width, $height]
+      if (!isTempGroup) {
+        children.push($angle)
+      }
+      return div({
+        'class_card': true,
+        ...jsxProps,
+      },
+        div('.card-header',
+          div('.card-title h6', '样式'),
+        ),
+        div('.card-body',
+          ...children,
+        )
+      )
+    }
     if (!isLine){
       let $isSameRatio = div({'class_proto-setting-box-item': true},
         span('等比缩放'),
