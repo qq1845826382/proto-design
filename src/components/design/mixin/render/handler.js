@@ -13,6 +13,7 @@ let _renderHandler = function () {
   let mousedown = (e) => {
     this._updateRectTempData(rect)
     e.stopPropagation()
+    this._startMouseDown(e)
     event.$emit('windowMouseDown', e)
   }
   let resizerJsx = {

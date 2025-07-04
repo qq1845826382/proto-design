@@ -44,6 +44,7 @@ let _renderRect = function (rect) {
         me._showContextmenu(e, 'rect')
       }
       else {
+        me._startMouseDown(e)
         event.$emit('windowMouseDown', e)
       }
     },

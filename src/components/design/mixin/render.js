@@ -98,6 +98,7 @@ export default {
             }
             else {
               me.mouse.eventType = 'circle'
+              me._startMouseDown(e)
               event.$emit('windowMouseDown', e)
             }
           }

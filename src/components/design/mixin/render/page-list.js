@@ -76,6 +76,7 @@ let _renderPageListItem = function (
         else {
           me.mouse.ing = true
           me.mouse.eventType = 'movePage'
+          me._startMouseDown(e)
           event.$emit('windowMouseDown', e)
         }
       },

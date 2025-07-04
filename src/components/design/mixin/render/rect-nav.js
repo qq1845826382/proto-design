@@ -20,6 +20,7 @@ let _renderRectNav = function () {
         e.stopPropagation()
         me.mouse.eventType = 'create'
         me.mouse.createType = type
+        me._startMouseDown(e)
         event.$emit('windowMouseDown', e)
       },
     }, ...children)
