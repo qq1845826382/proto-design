@@ -49,6 +49,14 @@ let capacity = {
   // 产能数值，默认空字符串
   capacity: '',
 }
+// 流程组件，使用图片进行展示
+let process = {
+  ...rect,
+  name: '流程',
+  // 记录图片路径，渲染时作为背景
+  img: require('../res/process.png'),
+  text: '',
+}
 let group = {
   ...base,
   name: '群组'
@@ -83,4 +91,5 @@ export {
   tempGroup,
   line,
   capacity,
+  process,
 }

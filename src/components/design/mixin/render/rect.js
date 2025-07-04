@@ -5,6 +5,8 @@ import {
   isRightMouse,
 } from "@/core/base"
 import event from '@/core/event'
+// 流程控件所使用的图像
+import processImg from '@/../res/process.png'
 let { div, span } = jsx
 let _renderRect = function (rect) {
   let me = this
@@ -57,6 +59,15 @@ let _renderRect = function (rect) {
   let children = []
   if (!this._checkIsGroupLike(rect)){
     jsxProps['on_dblclick'] = (e) => {
+      // 如果是流程控件，则弹出流程对话框
+      if (rect.type === 'rect-process') {
+        me._focusRect(rect, e)
+        rect.data.isEdit = false
+        me.$processDialog()
+        mouse.ing = false
+        return
+      }
+      // 其它控件保持原来的双击编辑逻辑
       me._focusRect(rect, e)
       mouse.ing = false
     }
@@ -97,7 +108,12 @@ let _renderRectInner = function (rect) {
       'style_border-width': data.borderWidth + 'px',
       'style_border-style': data.borderStyle,
       'style_border-color': data.borderColor,
-      'style_background-color': data.backgroundColor,
+      // 对于流程控件，使用图片作为背景
+      ...(rect.type === 'rect-process' ? {
+        style_background: `url(${processImg}) center/contain no-repeat`
+      } : {
+        'style_background-color': data.backgroundColor,
+      }),
       'style_border-radius': percentPx(data.borderRadius),
       'style_align-items': data.textAlignY,
       'style_justify-content': data.textAlignX,
@@ -110,7 +126,11 @@ let _renderRectInner = function (rect) {
       'style_font-size': data.fontSize + 'px',
       'style_font-family': data.fontFamily,
     }
-    if (isEdit) {
+    // 流程控件不显示文本
+    if (rect.type === 'rect-process') {
+      textJsxProps = null
+    }
+    if (isEdit && textJsxProps) {
       textJsxProps = {
         ...textJsxProps,
         style_cursor: 'text',
@@ -142,13 +162,15 @@ let _renderRectInner = function (rect) {
         }
       })
     }
-    else {
+    else if (textJsxProps) {
       textJsxProps = {
         ...textJsxProps,
         'domProps_innerHTML': data.text,
       }
     }
-    children = [span(textJsxProps)]
+    if (textJsxProps) {
+      children = [span(textJsxProps)]
+    }
   }
   
   return div(jsxProps, ...children)

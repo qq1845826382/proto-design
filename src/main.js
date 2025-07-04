@@ -4,6 +4,8 @@ import Spectre from '@/components/spectre/index'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import Design from '@/components/design/index'
+// 引入流程对话框组件，使其在全局原型上注册
+import '@/components/process-dialog'
 Vue.use(Spectre)
 Vue.use(VueRouter)
 Vue.component('v-icon', Icon)

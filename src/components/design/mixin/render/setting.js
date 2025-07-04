@@ -18,11 +18,11 @@ let _renderSetting = function () {
   let rect = this._safeObject(
     this.currRectId || this._getSelectedRects()[0]
   )
-  let children = []
+    let children = []
 
-  if (rect){
-    let rectData = rect.data
-    let isGroupLike = this._checkIsGroupLike(rect)
+    if (rect){
+      let rectData = rect.data
+      let isGroupLike = this._checkIsGroupLike(rect)
     let isTempGroup = this._checkIsTempGroup(rect)
     let isLine = rect.type === 'rect-line'
     let isText = rect.type === 'rect-text'
@@ -71,6 +71,50 @@ let _renderSetting = function () {
         }
       }
       return jsxProps
+    }
+    if (rect.type === 'rect-process') {
+      // 流程控件仅展示坐标、尺寸和角度设置
+      const fields = ['left','top','width','height','angle']
+      fields.forEach(prop => {
+        let label = {
+          left: 'X轴坐标',
+          top: 'Y轴坐标',
+          width: '宽度',
+          height: '高度',
+          angle: '角度'
+        }[prop]
+        let inputItem = div({'class_proto-setting-box-item': true},
+          span(label),
+          input({
+            ...getInputJsxProps(prop),
+            on_change: (e) => {
+              let v = parseInt(e.target.value)
+              if (prop === 'left') { me._moveLeftTo(rect, v) }
+              if (prop === 'top') { me._moveTopTo(rect, v) }
+              if (prop === 'width') { me._resizeWidthTo(rect, Math.max(10,v)) }
+              if (prop === 'height') { me._resizeHeightTo(rect, Math.max(10,v)) }
+              if (prop === 'angle') {
+                v = v % 360
+                if (v < 0) v += 360
+                me._rotateTo(rect, v)
+              }
+              me._historyPush()
+            }
+          })
+        )
+        children = [...children, inputItem]
+      })
+      return div({
+        'class_card': true,
+        ...jsxProps,
+      },
+        div('.card-header',
+          div('.card-title h6', '样式'),
+        ),
+        div('.card-body',
+          ...children,
+        )
+      )
     }
     if (isTempGroup){
       let $align = div({'class_proto-setting-box-item': true},
