@@ -54,6 +54,31 @@ let process = {
   ...rect,
   name: '流程',
 }
+// PPS 控件，与流程控件属性一致，仅修改名称
+let pps = {
+  ...rect,
+  name: 'PPS',
+}
+// connector 控件
+let connector = {
+  ...rect,
+  name: 'connector',
+}
+// customer 控件
+let customer = {
+  ...rect,
+  name: 'customer',
+}
+// fifo 控件
+let fifo = {
+  ...rect,
+  name: 'fifo',
+}
+// stock 控件
+let stock = {
+  ...rect,
+  name: 'stock',
+}
 let group = {
   ...base,
   name: '群组'
@@ -89,4 +114,9 @@ export {
   line,
   capacity,
   process,
+  pps,
+  connector,
+  customer,
+  fifo,
+  stock,
 }
