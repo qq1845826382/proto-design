@@ -49,6 +49,11 @@ let capacity = {
   // 产能数值，默认空字符串
   capacity: '',
 }
+// 流程控件，使用图片作为元素图
+let process = {
+  ...rect,
+  name: '流程',
+}
 let group = {
   ...base,
   name: '群组'
@@ -83,4 +88,5 @@ export {
   tempGroup,
   line,
   capacity,
+  process,
 }
