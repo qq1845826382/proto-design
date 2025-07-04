@@ -73,6 +73,7 @@ let _renderRectListItem = function (rect) {
         }
         me._focusRect(rect, {shiftKey: false})
         e.stopPropagation()
+        me._startMouseDown(e)
         event.$emit('windowMouseDown', e)
         // 右键判断
         if (isRightMouse(e)){

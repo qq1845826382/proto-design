@@ -119,6 +119,11 @@ let _renderSetting = function () {
       span('X轴坐标'),
       input({
         ...getInputJsxProps('left'),
+        'on_input' (e) {
+          let value = e.target.value
+          let intValue = parseInt(value)
+          me._moveLeftTo(rect, intValue)
+        },
         'on_change' (e) {
           let value = e.target.value
           let intValue = parseInt(value)
@@ -132,6 +137,11 @@ let _renderSetting = function () {
       span('Y轴坐标'),
       input({
         ...getInputJsxProps('top'),
+        'on_input' (e) {
+          let value = e.target.value
+          let intValue = parseInt(value)
+          me._moveTopTo(rect, intValue)
+        },
         'on_change' (e) {
           let value = e.target.value
           let intValue = parseInt(value)
@@ -146,6 +156,11 @@ let _renderSetting = function () {
       input({
         domProps_disabled: isAutoSize,
         ...getInputJsxProps('width'),
+        'on_input' (e) {
+          let value = e.target.value
+          let intValue = Math.max(10, parseInt(value))
+          me._resizeWidthTo(rect, intValue)
+        },
         'on_change' (e) {
           let value = e.target.value
           let intValue = Math.max(10, parseInt(value))
@@ -160,6 +175,11 @@ let _renderSetting = function () {
       input({
         domProps_disabled: isAutoSize || isLine || isSameRatio,
         ...getInputJsxProps('height'),
+        'on_input' (e) {
+          let value = e.target.value
+          let intValue = Math.max(10, parseInt(value))
+          me._resizeHeightTo(rect, intValue)
+        },
         'on_change' (e) {
           let value = e.target.value
           let intValue = Math.max(10, parseInt(value))

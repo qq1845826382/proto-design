@@ -29,11 +29,26 @@ export default {
     }
   },
   methods: {
+    // 鼠标按下时初始化坐标并记录状态
+    _startMouseDown (e) {
+      let point = this._getMousePoint(e)
+      this.mouse.startLeft = this.mouse.currLeft = point.left
+      this.mouse.startTop = this.mouse.currTop = point.top
+      // 当没有选中组件且事件类型为移动时，不进入拖拽状态
+      if (!this.currRectId && this.mouse.eventType === 'move') {
+        this.mouse.ing = false
+      }
+      else {
+        this.mouse.ing = true
+      }
+      this.mouse.e = e
+    },
   },
   created () {
     let me = this
     let mouse = this.mouse
     let mousedown = (e) => {
+      this._startMouseDown(e)
       event.$emit('windowMouseDown', e)
     }
     let mousemove = (e) => {
@@ -103,15 +118,7 @@ export default {
     })
     // event
     event.$on('windowMouseDown', (e) => {
-      let mousePoint = this._getMousePoint(e)
-      mouse.startLeft = mouse.currLeft = mousePoint.left
-      mouse.startTop = mouse.currTop = mousePoint.top
-      if (!this.currRectId && this.mouse.eventType === 'move') {
-        mouse.ing = false
-      }
-      else {
-        mouse.ing = true
-      }
+      this._startMouseDown(e)
     })
   },
   mounted () {
