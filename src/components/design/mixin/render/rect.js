@@ -59,6 +59,11 @@ let _renderRect = function (rect) {
     jsxProps['on_dblclick'] = (e) => {
       me._focusRect(rect, e)
       mouse.ing = false
+      // 双击流程控件时弹出流程配置对话框
+      if (rect.type === 'rect-process') {
+        me.$processDialog()
+        return
+      }
     }
     children = [this._renderRectInner(rect)]
   }
@@ -109,6 +114,13 @@ let _renderRectInner = function (rect) {
       'style_color': data.color,
       'style_font-size': data.fontSize + 'px',
       'style_font-family': data.fontFamily,
+    }
+    // 流程控件使用图片渲染
+    if (rect.type === 'rect-process') {
+      let img = jsx.bind('img')
+      children = [img({attrs_src: require('@/../res/process.png'),
+        style_width: '100%', style_height: '100%'})]
+      return div(jsxProps, ...children)
     }
     if (isEdit) {
       textJsxProps = {
