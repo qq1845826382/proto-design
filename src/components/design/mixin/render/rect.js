@@ -56,9 +56,16 @@ let _renderRect = function (rect) {
   }
   let children = []
   if (!this._checkIsGroupLike(rect)){
-    jsxProps['on_dblclick'] = (e) => {
-      me._focusRect(rect, e)
-      mouse.ing = false
+    if (rect.type === 'rect-process') {
+      // 流程控件双击弹出配置对话框
+      jsxProps['on_dblclick'] = () => {
+        this.$processDialog()
+      }
+    } else {
+      jsxProps['on_dblclick'] = (e) => {
+        me._focusRect(rect, e)
+        mouse.ing = false
+      }
     }
     children = [this._renderRectInner(rect)]
   }

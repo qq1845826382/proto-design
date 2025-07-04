@@ -1,4 +1,6 @@
 import color from './color'
+// 引入流程图标，用作流程控件的背景图
+import processImg from '../../res/process.emf'
 let base = {
   name: '对象',
   top: 0,
@@ -75,6 +77,15 @@ let line = {
   height: 1,
   isAngleLock: false,
 }
+// 流程控件，使用 process.emf 作为背景
+let process = {
+  ...rect,
+  name: '流程',
+  backgroundImage: `url(${processImg})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+  backgroundSize: 'contain',
+}
 export {
   rect,
   circle,
@@ -83,4 +94,5 @@ export {
   tempGroup,
   line,
   capacity,
+  process,
 }
