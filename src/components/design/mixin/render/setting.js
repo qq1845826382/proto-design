@@ -120,6 +120,8 @@ let _renderSetting = function () {
       input({
         ...getInputJsxProps('left'),
         'on_change' (e) {
+          // 先更新临时数据，保证基准坐标正确
+          me._updateRectTempData(rect)
           let value = e.target.value
           let intValue = parseInt(value)
           me._moveLeftTo(rect, intValue)
@@ -133,6 +135,8 @@ let _renderSetting = function () {
       input({
         ...getInputJsxProps('top'),
         'on_change' (e) {
+          // 先更新临时数据，保证基准坐标正确
+          me._updateRectTempData(rect)
           let value = e.target.value
           let intValue = parseInt(value)
           me._moveTopTo(rect, intValue)
@@ -147,6 +151,8 @@ let _renderSetting = function () {
         domProps_disabled: isAutoSize,
         ...getInputJsxProps('width'),
         'on_change' (e) {
+          // 先更新临时数据，保证拉伸参照位置正确
+          me._updateRectTempData(rect)
           let value = e.target.value
           let intValue = Math.max(10, parseInt(value))
           me._resizeWidthTo(rect, intValue)
@@ -161,6 +167,8 @@ let _renderSetting = function () {
         domProps_disabled: isAutoSize || isLine || isSameRatio,
         ...getInputJsxProps('height'),
         'on_change' (e) {
+          // 先更新临时数据，保证拉伸参照位置正确
+          me._updateRectTempData(rect)
           let value = e.target.value
           let intValue = Math.max(10, parseInt(value))
           me._resizeHeightTo(rect, intValue)

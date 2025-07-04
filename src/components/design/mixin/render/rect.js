@@ -44,6 +44,11 @@ let _renderRect = function (rect) {
         me._showContextmenu(e, 'rect')
       }
       else {
+        // 记录鼠标起始坐标，开始拖拽
+        let mp = me._getMousePoint(e)
+        mouse.startLeft = mouse.currLeft = mp.left
+        mouse.startTop = mouse.currTop = mp.top
+        mouse.ing = true
         event.$emit('windowMouseDown', e)
       }
     },
