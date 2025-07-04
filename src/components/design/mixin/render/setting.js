@@ -271,8 +271,11 @@ let _renderSetting = function () {
               let intValue = Math.max(0, parseInt(value))
               rect.data.borderWidth = intValue
               if (isLine){
+                // 线条宽度即高度
                 rect.data.height = intValue
               }
+              // 更新历史记录触发重渲染
+              me._historyPush()
             }
           })
         )
@@ -352,6 +355,8 @@ let _renderSetting = function () {
             if (rectData.isAutoSize) {
               me._resizeText(rect)
             }
+            // 记录历史并刷新
+            me._historyPush()
           },
         })
       )

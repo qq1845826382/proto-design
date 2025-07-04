@@ -1,19 +1,27 @@
 // import * as rectConfig from '@/core/rect-config'
 import jsx from 'vue-jsx'
 import event from '@/core/event'
-// 引入流程控件图片
-import processImg from '@/../res/process.png'
+// 左侧导航只展示图片型组件，可拖拽创建对应流程控件
 let {
   span,
   div
 } = jsx
 let _renderRectNav = function () {
   let me = this
-  // 仅保留流程控件
-  let retTags = ['process'].map(type => {
-    // 控件图标使用流程图片
+  // 根据图片名称映射图片资源，键名即组件类型
+  // require 语句在构建时会被 webpack 处理为图片 URL
+  let images = {
+    process: require('@/../res/process.png'),
+    PPS: require('@/../res/PPS.png'),
+    connector: require('@/../res/connector.png'),
+    customer: require('@/../res/customer.png'),
+    fifo: require('@/../res/fifo.png'),
+    stock: require('@/../res/stock.png'),
+  }
+  let retTags = Object.keys(images).map(type => {
     let img = jsx.bind('img')
-    let children = [img({attrs_src: processImg, style_width: '24px', style_height: '24px'})]
+    // 使用对应图片作为控件图标
+    let children = [img({ attrs_src: images[type], style_width: '24px', style_height: '24px' })]
     return span({
       'class_label': true,
       on_mousedown (e) {

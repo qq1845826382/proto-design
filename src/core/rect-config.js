@@ -50,10 +50,20 @@ let capacity = {
   capacity: '',
 }
 // 流程控件，使用图片作为元素图
+// 流程控件，默认以图片实际尺寸创建，并去除边框
 let process = {
   ...rect,
   name: '流程',
+  width: 156,
+  height: 99,
+  borderWidth: 0,
 }
+// 以下组件与流程组件除名称外完全一致，仅名称及尺寸不同
+let PPS = { ...process, name: 'PPS', width: 174, height: 98 }
+let connector = { ...process, name: 'connector', width: 155, height: 37 }
+let customer = { ...process, name: 'customer', width: 174, height: 117 }
+let fifo = { ...process, name: 'fifo', width: 100, height: 25 }
+let stock = { ...process, name: 'stock', width: 80, height: 75 }
 let group = {
   ...base,
   name: '群组'
@@ -89,4 +99,9 @@ export {
   line,
   capacity,
   process,
+  PPS,
+  connector,
+  customer,
+  fifo,
+  stock,
 }

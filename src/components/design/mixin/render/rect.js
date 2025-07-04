@@ -5,6 +5,16 @@ import {
   isRightMouse,
 } from "@/core/base"
 import event from '@/core/event'
+// 流程图使用的图片资源映射表
+// 通过 require 获取图片 URL，便于 webpack 在打包时处理
+const imageTypes = {
+  process: require('@/../res/process.png'),
+  PPS: require('@/../res/PPS.png'),
+  connector: require('@/../res/connector.png'),
+  customer: require('@/../res/customer.png'),
+  fifo: require('@/../res/fifo.png'),
+  stock: require('@/../res/stock.png'),
+}
 let { div, span } = jsx
 let _renderRect = function (rect) {
   let me = this
@@ -60,8 +70,9 @@ let _renderRect = function (rect) {
     jsxProps['on_dblclick'] = (e) => {
       me._focusRect(rect, e)
       mouse.ing = false
-      // 双击流程控件时弹出流程配置对话框
-      if (rect.type === 'rect-process') {
+      // 双击图片型组件时弹出流程配置对话框
+      let typeKey = rect.type.replace('rect-', '')
+      if (typeKey in imageTypes) {
         me.$processDialog()
         return
       }
@@ -116,11 +127,11 @@ let _renderRectInner = function (rect) {
       'style_font-size': data.fontSize + 'px',
       'style_font-family': data.fontFamily,
     }
-    // 流程控件使用图片渲染
-    if (rect.type === 'rect-process') {
+    // 图片型组件统一使用对应图片渲染
+    let typeKey = rect.type.replace('rect-', '')
+    if (typeKey in imageTypes) {
       let img = jsx.bind('img')
-      children = [img({attrs_src: require('@/../res/process.png'),
-        style_width: '100%', style_height: '100%'})]
+      children = [img({ attrs_src: imageTypes[typeKey], style_width: '100%', style_height: '100%' })]
       return div(jsxProps, ...children)
     }
     if (isEdit) {
