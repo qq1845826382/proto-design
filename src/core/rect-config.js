@@ -50,9 +50,46 @@ let capacity = {
   capacity: '',
 }
 // 流程控件，使用图片作为元素图
+// 流程控件，使用图片作为元素图。
+// 新增的图片型组件都与流程组件字段相同，仅尺寸不同，且默认无边框
 let process = {
   ...rect,
   name: '流程',
+  width: 156,  // 图片原始宽度
+  height: 99,  // 图片原始高度
+  borderWidth: 0,
+}
+// 以下组件与流程组件除名称外完全一致，用于渲染不同图片，
+// 并根据对应图片设置默认尺寸
+let PPS = {
+  ...process,
+  name: 'PPS',
+  width: 174,
+  height: 98,
+}
+let connector = {
+  ...process,
+  name: 'connector',
+  width: 155,
+  height: 37,
+}
+let customer = {
+  ...process,
+  name: 'customer',
+  width: 174,
+  height: 117,
+}
+let fifo = {
+  ...process,
+  name: 'fifo',
+  width: 100,
+  height: 25,
+}
+let stock = {
+  ...process,
+  name: 'stock',
+  width: 80,
+  height: 75,
 }
 let group = {
   ...base,
@@ -89,4 +126,9 @@ export {
   line,
   capacity,
   process,
+  PPS,
+  connector,
+  customer,
+  fifo,
+  stock,
 }

@@ -5,6 +5,23 @@ import {
   isRightMouse,
 } from "@/core/base"
 import event from '@/core/event'
+// 所有图片型组件对应的图片资源
+import processImg from '@/../res/process.png'
+import PPSImg from '@/../res/PPS.png'
+import connectorImg from '@/../res/connector.png'
+import customerImg from '@/../res/customer.png'
+import fifoImg from '@/../res/fifo.png'
+import stockImg from '@/../res/stock.png'
+
+// 组件类型到图片的映射表，便于统一处理
+const imageTypes = {
+  process: processImg,
+  PPS: PPSImg,
+  connector: connectorImg,
+  customer: customerImg,
+  fifo: fifoImg,
+  stock: stockImg,
+}
 let { div, span } = jsx
 let _renderRect = function (rect) {
   let me = this
@@ -60,8 +77,9 @@ let _renderRect = function (rect) {
     jsxProps['on_dblclick'] = (e) => {
       me._focusRect(rect, e)
       mouse.ing = false
-      // 双击流程控件时弹出流程配置对话框
-      if (rect.type === 'rect-process') {
+      // 双击图片型组件时弹出流程配置对话框
+      let typeKey = rect.type.replace('rect-', '')
+      if (typeKey in imageTypes) {
         me.$processDialog()
         return
       }
@@ -116,11 +134,11 @@ let _renderRectInner = function (rect) {
       'style_font-size': data.fontSize + 'px',
       'style_font-family': data.fontFamily,
     }
-    // 流程控件使用图片渲染
-    if (rect.type === 'rect-process') {
+    // 图片型组件统一使用对应图片渲染
+    let typeKey = rect.type.replace('rect-', '')
+    if (typeKey in imageTypes) {
       let img = jsx.bind('img')
-      children = [img({attrs_src: require('@/../res/process.png'),
-        style_width: '100%', style_height: '100%'})]
+      children = [img({ attrs_src: imageTypes[typeKey], style_width: '100%', style_height: '100%' })]
       return div(jsxProps, ...children)
     }
     if (isEdit) {

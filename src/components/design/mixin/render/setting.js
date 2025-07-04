@@ -273,6 +273,8 @@ let _renderSetting = function () {
               if (isLine){
                 rect.data.height = intValue
               }
+              // 更新历史记录，触发视图刷新
+              me._historyPush()
             }
           })
         )
@@ -352,6 +354,8 @@ let _renderSetting = function () {
             if (rectData.isAutoSize) {
               me._resizeText(rect)
             }
+            // 保存修改并推入历史记录
+            me._historyPush()
           },
         })
       )
