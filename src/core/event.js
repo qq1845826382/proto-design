@@ -1,2 +1,3 @@
 import Vue from 'vue'
-export default new Vue
+// 事件总线，用于跨组件通信
+export default new Vue()
