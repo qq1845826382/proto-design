@@ -4,7 +4,6 @@
 <script>
 import Vue from 'vue'
 import jsx from 'vue-jsx'
-import event from '@/core/event'
 // 绑定 Element UI 组件
 const ElDialog = jsx.bind('el-dialog')
 const ElTabs = jsx.bind('el-tabs')
@@ -32,12 +31,8 @@ let ProcessDialog = {
       this.isOpen = false
     }
   },
-  created () {
-    // 在页面其他位置点击时关闭弹框
-    event.$on('windowMouseDown', () => {
-      this.close()
-    })
-  },
+  // 不再监听全局鼠标事件，避免点击选项卡或
+  // 拖拽其他组件时弹框被意外关闭
   render (h) {
     jsx.h = h
     // 弹框隐藏时不渲染任何内容
@@ -50,7 +45,10 @@ let ProcessDialog = {
       'on_update:visible': v => { me.isOpen = v },
       props_title: '流程配置',
       props_width: '400px',
+      // 点击遮罩层即可关闭弹框
       props_closeOnClickModal: true,
+      // 显示右上角关闭按钮
+      props_showClose: true,
       on_close: this.close,
     },
       ElTabs({
