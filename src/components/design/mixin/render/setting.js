@@ -273,10 +273,11 @@ let _renderSetting = function () {
               if (isLine){
                 rect.data.height = intValue
               }
+              me._historyPush()
             }
           })
         )
-        children = [...children, $borderWidth]
+      children = [...children, $borderWidth]
         let $borderStyle = div({'class_proto-setting-box-item': true},
           span('边框样式'),
           select({
@@ -352,6 +353,7 @@ let _renderSetting = function () {
             if (rectData.isAutoSize) {
               me._resizeText(rect)
             }
+            me._historyPush()
           },
         })
       )
