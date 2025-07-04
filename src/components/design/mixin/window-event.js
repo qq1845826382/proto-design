@@ -41,7 +41,13 @@ export default {
       else {
         this.mouse.ing = true
       }
+      // 鼠标位置记录，用于 _move 等函数
       this.mouse.e = e
+      // 开始拖拽前同步临时数据，保证移动/旋转基准正确
+      if (this.currRectId && ['move', 'resize', 'rotate'].includes(this.mouse.eventType)) {
+        let rect = this.objects[this.currRectId]
+        this._updateRectTempData(rect)
+      }
     },
   },
   created () {

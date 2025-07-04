@@ -194,6 +194,14 @@ let _renderSetting = function () {
         span('角度'),
         input({
           ...getInputJsxProps('angle'),
+          'on_input' (e) {
+            let value = e.target.value
+            let intValue = parseInt(value) % 360
+            if (intValue < 0){
+              intValue += 360
+            }
+            me._rotateTo(rect, intValue)
+          },
           'on_change' (e) {
             let value = e.target.value
             let intValue = parseInt(value) % 360
